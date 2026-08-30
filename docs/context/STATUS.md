@@ -1,8 +1,8 @@
 # STATUS
 
 Proyecto: JGC.LABS Official Landing
-Contexto: v2.9
-Estado: LOOP 08 entregado — LOOP 09 entregado, pendiente QA/build de Jorge
+Contexto: v2.11
+Estado: LOOPs 01–09 DONE — build validado en producción, dominio confirmado
 Próximo: LOOP 10 — Contacto
 
 Equipo:
@@ -11,17 +11,17 @@ GPT — Architecture / Strategy
 Claude — Engineering / Implementation
 
 Stack confirmado: Next.js 14 (App Router) + TypeScript + Tailwind CSS.
-Build local: validado por Jorge hasta LOOP 01. LOOPs 02–09 pendientes de
-validación de build real — D-021 sigue vigente.
+Build: VALIDADO EN PRODUCCIÓN — https://landing-jgc.vercel.app/ (D-025).
+CI activo en GitHub Actions (.github/workflows/ci.yml) valida cada push
+automáticamente.
 
-Servicios (LOOP 09): 4 bloques compactos con acento único (no por-
-identidad, a diferencia de Team). Heading de la sección es sr-only
-(estructural), no hay título de marketing suministrado — no se inventó.
+Dominio: CONFIRMADO (D-026) — landing-jgc.vercel.app es permanente,
+Jorge no comprará dominio propio. metadataBase/og:url/sitemap/robots ya
+usan esta URL real (lib/site-config.ts). Solo falta og:image (asset de
+marca, no dominio).
 
-CI: agregado `.github/workflows/ci.yml` (D-022) — valida install/lint/
-build automáticamente en cada push/PR a `main` vía GitHub Actions. A
-partir de que Jorge suba el repo a GitHub, esto reemplaza la necesidad
-de correr el build manualmente en cada loop.
+Repo: GitHub (lordFullstack/landing-jgc). Nota: verificar que el nombre
+del repo ya no tenga el punto final detectado en D-023.
 
 Regla: cada loop se entrega como ZIP con estructura montada y contexto
 actualizado.

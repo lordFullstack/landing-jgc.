@@ -1,21 +1,19 @@
 # TODO
 
-## Completado
+## Completado y DONE (build validado en producción)
 - [x] LOOP 00 — Constitución
-- [x] LOOP 01 — Arquitectura base (build validado por Jorge)
+- [x] LOOP 01 — Arquitectura base
 - [x] LOOP 02 — Design System
 - [x] LOOP 03 — Base frontend
 - [x] LOOP 04 — Header (visual + navegación mobile funcional)
+- [x] LOOP 05 — Hero
+- [x] LOOP 06 — Equipo
+- [x] LOOP 07 — Método
+- [x] LOOP 08 — Proyectos
+- [x] LOOP 09 — Servicios
+- [x] CI configurado y funcionando (GitHub Actions + Vercel)
 
-## Entregado, DONE pendiente de build
-- [~] LOOP 05 — Hero (D-020 aprobada).
-- [~] LOOP 06 — Equipo (distinción visual J/G/C por entidad).
-- [~] LOOP 07 — Método (bento/timeline + reveal progresivo CSS-only).
-- [~] LOOP 08 — Proyectos (visual/preview placeholder + demo link condicional, sin métricas inventadas).
-- [~] LOOP 09 — Servicios (bloques compactos, heading sr-only estructural).
-
-## Bloqueado / requiere acción de Jorge
-- [ ] Validar build de LOOP 02 a 09 (`npm install && npm run build`) — REQUISITO para marcar DONE (D-021 permite seguir desarrollando mientras tanto).
+## Requiere acción de Jorge (contenido/decisiones, no bloquea desarrollo)
 - [ ] Probar menú mobile con teclado/lector de pantalla (LOOP 04).
 - [ ] Confirmar CTA secundario del Hero (D-012).
 - [ ] Proveer copy final: descripciones de método (6), servicios (4), copy de soporte del Hero.
@@ -24,7 +22,7 @@
 - [ ] Proveer mockup visual final (imagen) para `docs/reference/mockup/`.
 - [ ] Proveer assets reales de marca (logo)/proyectos/íconos.
 - [ ] Confirmar curva de easing / timing exactos de motion (LOOP 02, provisional).
-- [ ] Confirmar dominio oficial para `metadataBase`, `og:image`, sitemap/robots absolutos (LOOP 03).
+- [ ] Proveer og:image real (falta asset de marca — dominio ya confirmado, D-026).
 
 ## Siguiente
 - [ ] LOOP 10 — Contacto

@@ -87,3 +87,19 @@
 ## 2026-08-28 — v2.9.2 — Fix CI
 - Corregido .github/workflows/ci.yml: quitado cache:"npm" (fallaba porque no existe package-lock.json en el repo todavía).
 - Detectado: el repo en GitHub quedó nombrado "landing-jgc." con punto final — causa raíz del fallo de clonado en GitHub Desktop/Windows. Recomendado renombrar sin el punto (D-023).
+
+## 2026-08-28 — v2.9.3 — Fix build real (primer error de CI)
+- next.config.ts -> next.config.mjs: Next.js 14 no soporta config en TypeScript (esa feature es de versiones posteriores). Fix confirmado por el primer log real de GitHub Actions.
+- tailwind.config.ts se mantiene sin cambios (Tailwind sí soporta .ts nativamente).
+
+## 2026-08-30 — v2.10 — Build validado en producción
+- Sitio desplegado y funcionando en https://landing-jgc.vercel.app/.
+- LOOPs 01-09 marcados DONE (D-025) — se resuelve el bloqueo de build real (D-021).
+- CI (GitHub Actions) confirmado operativo tras los fixes de next.config.mjs y cache de npm.
+
+## 2026-08-30 — v2.11 — Dominio confirmado
+- D-026: Jorge confirma que no comprará dominio propio; landing-jgc.vercel.app queda como dominio oficial permanente.
+- Nuevo lib/site-config.ts (SITE_URL) como fuente única del dominio.
+- app/layout.tsx: agregado metadataBase y openGraph.url con la URL real.
+- app/sitemap.ts y app/robots.ts actualizados a URLs absolutas.
+- og:image sigue pendiente (falta asset de marca, no el dominio).

@@ -1,15 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { SITE_URL } from "@/lib/site-config";
 
 /**
- * SEO base — LOOP 03.
- *
- * NO se define `metadataBase` ni og:image: requieren un dominio y un asset
- * de marca reales que Jorge aún no ha suministrado (ver docs/context/TODO.md).
- * Definirlos ahora sería inventar información de negocio. Next.js genera
- * URLs relativas mientras tanto; actualizar cuando el dominio esté confirmado.
+ * SEO base — LOOP 03, actualizado tras D-026 (dominio confirmado:
+ * Jorge no comprará dominio propio, el sitio queda permanentemente en
+ * Vercel). `metadataBase` y `openGraph.url` ya pueden fijarse con una
+ * URL real. `og:image` sigue sin definirse — falta el asset de marca,
+ * eso no cambió con esta decisión.
  */
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "JGC.LABS — Human vision. AI engineering. Real products.",
   description:
     "JGC.LABS es un AI-native product lab. Convertimos ideas en productos digitales reales.",
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
     title: "JGC.LABS — Human vision. AI engineering. Real products.",
     description:
       "JGC.LABS es un AI-native product lab. Convertimos ideas en productos digitales reales.",
+    url: SITE_URL,
     type: "website",
     locale: "es_ES",
   },
