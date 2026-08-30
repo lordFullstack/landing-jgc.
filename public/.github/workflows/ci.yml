@@ -1,0 +1,38 @@
+name: CI
+
+# Validación automática de build — resuelve la limitación reportada desde
+# LOOP 01: el entorno de Claude no tiene acceso de red y no puede correr
+# `npm install`/`npm run build`. Este workflow lo hace en cada push/PR,
+# así el build se valida sin depender de que Jorge lo corra manualmente
+# cada vez.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          # Sin `cache: "npm"` por ahora: requiere un lockfile
+          # (package-lock.json) presente en el repo. Se puede volver a
+          # activar en cuanto exista uno commiteado.
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
