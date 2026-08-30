@@ -83,3 +83,7 @@
 ## 2026-08-28 — v2.9.1 — CI
 - Agregado .github/workflows/ci.yml (D-022): install + lint + build automático en cada push/PR a main vía GitHub Actions.
 - Resuelve hacia adelante la limitación de red del entorno de Claude reportada desde LOOP 01 — ya no dependerá exclusivamente de que Jorge corra el build localmente.
+
+## 2026-08-28 — v2.9.2 — Fix CI
+- Corregido .github/workflows/ci.yml: quitado cache:"npm" (fallaba porque no existe package-lock.json en el repo todavía).
+- Detectado: el repo en GitHub quedó nombrado "landing-jgc." con punto final — causa raíz del fallo de clonado en GitHub Desktop/Windows. Recomendado renombrar sin el punto (D-023).

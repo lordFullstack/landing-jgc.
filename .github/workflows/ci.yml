@@ -24,7 +24,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "npm"
+          # Sin `cache: "npm"` por ahora: requiere un lockfile
+          # (package-lock.json) presente en el repo. Se puede volver a
+          # activar en cuanto exista uno commiteado.
 
       - name: Install dependencies
         run: npm install
