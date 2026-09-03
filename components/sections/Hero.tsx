@@ -25,6 +25,18 @@ import {
  * "content reveal" (350–600ms) de la sección 16. Sin retrasar el
  * contenido (aparece casi de inmediato) y respeta prefers-reduced-motion
  * globalmente (LOOP 01).
+ *
+ * LOOP 05 — FINAL QA (2026-08-30), dos fixes aplicados sobre producción:
+ * 1. Los 2 CTAs no tenían href/onClick (no hacían nada al hacer click).
+ *    Ahora apuntan a anclas reales ya existentes en la página: primario
+ *    → #contacto, secundario → #metodo.
+ * 2. El h1 usaba 3 <span className="block"> sin espacio de texto real
+ *    entre ellos — el layout visual (line-break por display:block) no
+ *    garantiza el mismo resultado en el nombre accesible ni en texto
+ *    copiado. Se agregó aria-label con el slogan exacto y se marcaron
+ *    los spans visuales como aria-hidden, garantizando fidelidad 1:1
+ *    del texto fuente para lectores de pantalla independientemente del
+ *    tratamiento visual.
  */
 export default function Hero() {
   return (
@@ -36,9 +48,12 @@ export default function Hero() {
               {HERO_EYEBROW}
             </p>
 
-            <h1 className="animate-fade-up mt-3 text-hero font-semibold tracking-tight [animation-delay:60ms]">
+            <h1
+              className="animate-fade-up mt-3 text-hero font-semibold tracking-tight [animation-delay:60ms]"
+              aria-label={SLOGAN_LINES.join(" ")}
+            >
               {SLOGAN_LINES.map((line) => (
-                <span key={line} className="block">
+                <span key={line} className="block" aria-hidden="true">
                   {line}
                 </span>
               ))}
@@ -51,8 +66,12 @@ export default function Hero() {
             ) : null}
 
             <div className="animate-fade-up mt-8 flex flex-wrap gap-4 [animation-delay:180ms]">
-              <Button variant="primary">{HERO_CTA_PRIMARY}</Button>
-              <Button variant="secondary">{HERO_CTA_SECONDARY}</Button>
+              <Button variant="primary" href="#contacto">
+                {HERO_CTA_PRIMARY}
+              </Button>
+              <Button variant="secondary" href="#metodo">
+                {HERO_CTA_SECONDARY}
+              </Button>
             </div>
           </div>
 

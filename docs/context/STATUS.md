@@ -1,9 +1,9 @@
 # STATUS
 
 Proyecto: JGC.LABS Official Landing
-Contexto: v2.11
-Estado: LOOPs 01–09 DONE — build validado en producción, dominio confirmado
-Próximo: LOOP 10 — Contacto
+Contexto: v2.13
+Estado: LOOP 05 READY FOR APPROVAL — LOOP 10 entregado, pendiente QA/build de Jorge
+Próximo: LOOP 11 — Footer
 
 Equipo:
 Jorge — Product / Vision / Final Authority
@@ -12,16 +12,16 @@ Claude — Engineering / Implementation
 
 Stack confirmado: Next.js 14 (App Router) + TypeScript + Tailwind CSS.
 Build: VALIDADO EN PRODUCCIÓN — https://landing-jgc.vercel.app/ (D-025).
-CI activo en GitHub Actions (.github/workflows/ci.yml) valida cada push
-automáticamente.
+Dominio: CONFIRMADO (D-026) — landing-jgc.vercel.app.
 
-Dominio: CONFIRMADO (D-026) — landing-jgc.vercel.app es permanente,
-Jorge no comprará dominio propio. metadataBase/og:url/sitemap/robots ya
-usan esta URL real (lib/site-config.ts). Solo falta og:image (asset de
-marca, no dominio).
+Contacto/CTA (LOOP 10): tratamiento de alto contraste con gradiente
+J/C/G, botón variante `inverted` (dark system preservado). Sin href real
+— falta canal de contacto (email/WhatsApp/form) que Jorge debe proveer.
+Mismo pendiente que H2 (QA LOOP 05) en Header/MobileNav.
 
-Repo: GitHub (lordFullstack/landing-jgc). Nota: verificar que el nombre
-del repo ya no tenga el punto final detectado en D-023.
+LOOP 05: sigue READY FOR APPROVAL, pendiente de QA manual de Jorge
+(responsive visual, consola, motion real, foco por teclado) y decisión
+sobre H3 (links de Footer rotos).
 
 Regla: cada loop se entrega como ZIP con estructura montada y contexto
 actualizado.

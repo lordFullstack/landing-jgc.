@@ -1,74 +1,100 @@
 # JGC.LABS — LOOP 05
-## Hero
+## Hero — FINAL QA
 
-**Estado:** ENTREGADO — pendiente de QA/build de Jorge
-**Depende de:** LOOP 04 (DONE, pendiente validación de build)
+**Estado:** READY FOR APPROVAL
+**QA ejecutado sobre:** https://landing-jgc.vercel.app/ (producción real, 2026-08-30)
+**Depende de:** LOOP 04 (DONE)
 
 ---
 
-### 1. Objetivo
+### 0. Método de QA y limitación honesta de entorno
 
-Implementar el Hero final: composición de dos zonas en desktop, orden de
-prioridad mobile exacto, headline con el slogan aprobado sin reescribir,
-visual abstracto de marca, y motion de entrada dentro de los rangos del
-spec. Fuente: `MOCKUP_SPEC.md` sección 8.
+Este QA se hizo combinando dos fuentes:
+1. **Verificación real contra producción** vía fetch HTTP del HTML/metadata servido, incluyendo intentos de acceso a rutas de Footer.
+2. **Revisión de código fuente** del repo para confirmar la lógica que produce ese HTML.
 
-### 2. Alcance implementado
+**Limitación de entorno, declarada explícitamente:** el entorno de Claude
+no tiene navegador con renderizado visual, DevTools ni consola. Los
+ítems que requieren eso están marcados como **"requiere QA manual de
+Jorge"** — no se inventaron resultados para ellos. Todo lo demás es
+verificación real, no simulada.
 
-- **Composición desktop:** grid de 2 columnas — texto (eyebrow, headline,
-  copy de soporte condicional, CTAs) a la izquierda; visual abstracto a
-  la derecha.
-- **Orden mobile:** columna única; el orden en el DOM ya respeta la
-  prioridad exacta del spec (marca → headline → mensaje de soporte → CTA
-  → visual), sin necesidad de `order-*` de Tailwind.
-- **Headline:** slogan exacto (`SLOGAN_LINES`), sin reescribir, usando el
-  token `text-hero` de LOOP 02.
-- **Eyebrow:** "JGC.LABS — AI-native product lab" — tomado literalmente
-  del campo WHAT de la sección 8 del spec (no es copy inventada).
-- **CTAs:** exactamente 2 (regla explícita del spec: "no more than two
-  primary hero actions") — primario "Hablemos de tu proyecto", secundario
-  con el default ya decidido en D-012.
-- **Visual abstracto** (`components/sections/HeroVisual.tsx`): composición
-  SVG decorativa con blobs difuminados en los 3 colores de acento ya
-  aprobados (J/G/C). No es un logo ni un asset de marca real — eso sigue
-  PENDIENTE. Marcado `aria-hidden`.
-- **Copy de soporte:** se agregó la constante `HERO_SUPPORTING_COPY` en
-  `lib/constants/copy.ts`, vacía y marcada PENDIENTE; el Hero omite el
-  párrafo mientras esté vacía (evita un hueco visual en blanco).
-- **Motion:** entrada `fade + translateY` (`animate-fade-up`), timing
-  `--duration-content` (450ms, dentro del rango 350–600ms de la sección
-  16), con micro-stagger de 0/60/120/180ms entre elementos — no retrasa
-  el contenido de forma perceptible. Respeta `prefers-reduced-motion`
-  (regla global de LOOP 01).
+---
 
-### 3. Explícitamente NO implementado
+### 1. Resultado por ítem del checklist
 
-- Copy de soporte real — sigue PENDIENTE (sin inventar).
-- Asset de marca/logo real — el visual sigue siendo abstracto/decorativo.
-- Confirmación final de D-012 (CTA secundario) — se mantiene el default.
+| # | Ítem | Resultado | Método |
+|---|------|-----------|--------|
+| 1 | Hero desktop | Código conforme al spec (grid 2 zonas) | Código + requiere confirmación visual manual |
+| 2 | Hero mobile | Código conforme (orden DOM = prioridad del spec) | Código + requiere confirmación visual manual |
+| 3 | Responsive 320-1440 | No verificable sin navegador/DevTools | **Requiere QA manual de Jorge** |
+| 4 | Slogan exacto con espacios | **ISSUE encontrado y corregido** (H1) | Fetch real + fix aplicado |
+| 5 | Máximo 2 CTAs en Hero | PASS — confirmado por fetch real | Fetch real |
+| 6 | Eyebrow | PASS — presente | Fetch real |
+| 7 | HeroVisual | Presente en código, aria-hidden (no aparece en texto, es lo esperado) | Código + requiere confirmación visual manual |
+| 8 | Motion / micro-stagger | Implementado en CSS | Código; comportamiento real requiere QA manual |
+| 9 | prefers-reduced-motion | Implementado globalmente desde LOOP 01 | Código; toggle real requiere QA manual |
+| 10 | Navegación | **ISSUE encontrado y corregido** (H2) | Código + fix aplicado |
+| 11 | Accesibilidad | Skip link, landmarks, aria-* de LOOP 03/04 vigentes; suma fix H1 | Código |
+| 12 | Focus states | Implementados en Button.tsx desde LOOP 02 | Código; confirmación con teclado requiere QA manual |
+| 13 | Touch targets | min-h-[44px], cumple mínimo del spec | Código |
+| 14 | Overflow horizontal | Sin señales de riesgo en el código | Código; confirmación visual requiere QA manual |
+| 15 | Console errors | No verificable sin navegador | **Requiere QA manual de Jorge** |
+| 16 | Build production | **PASS** — sitio desplegado, responde 200 | Fetch real |
+| 17 | Links | **ISSUE encontrado, reportado, NO corregido** (H3 — fuera de alcance) | Fetch real (404 confirmado) |
+| 18 | Metadata básica | PASS — title/description/og/twitter/viewport/theme-color presentes | Fetch real |
+| 19 | Coherencia con MOCKUP_SPEC.md | PASS | Código + spec |
 
-### 4. Validación realizada (sin acceso de red en este entorno)
+---
 
-- Sintaxis TS/TSX de todos los archivos.
-- Resolución de imports `@/*`.
-- Confirmado exactamente 2 `<Button>` en el Hero (regla del spec).
-- `tailwind.config.ts` sigue parseando correctamente con todos los tokens acumulados.
+### 2. Hallazgos
 
-**Acción requerida de Jorge:**
-- `npm install && npm run build` localmente.
-- Verificar visualmente el orden mobile (320–430px) y la composición desktop (1024px+).
-- Confirmar si el visual abstracto es aceptable como placeholder o si prefiere ocultarlo hasta tener el asset real.
-- Confirmar D-012.
+#### H1 — Slogan sin espacio de texto real entre frases (MEDIUM)
+El H1 renderizaba 3 `<span className="block">` sin carácter de espacio
+real entre ellos. Fetch real confirmó texto extraído como "Human
+vision.AI engineering.Real products." (sin espacios). **Fix aplicado:**
+`aria-label="Human vision. AI engineering. Real products."` (exacto) en
+el `<h1>`, spans visuales marcados `aria-hidden="true"`. Layout visual
+sin cambios.
 
-### 5. Criterios de aceptación
+#### H2 — Los 2 CTAs del Hero no hacían nada al hacer click (HIGH)
+Ningún `href`/`onClick`. **Fix aplicado:** `Button.tsx` acepta `href`
+opcional (retrocompatible — confirmado que CTA.tsx/Header.tsx/
+MobileNav.tsx siguen igual). Hero primario → `#contacto`, secundario →
+`#metodo` (ambas anclas ya existen). **Nota:** el mismo patrón existe en
+CTA.tsx/Header.tsx/MobileNav.tsx — no tocado, fuera de alcance de Hero.
 
-- [x] Slogan exacto, sin reescribir.
-- [x] Máximo 2 CTAs primarios.
-- [x] Orden de prioridad mobile respetado.
-- [x] Visual decorativo sin inventar assets de marca.
-- [x] Motion dentro de los rangos del spec, sin bloquear contenido.
-- [ ] Validación visual y de build por Jorge.
+#### H3 — Links del Footer rotos, 404 confirmado (HIGH, fuera de alcance)
+`/privacidad` y `/terminos` no existen como páginas. No corregido en
+este QA (es Footer, LOOP 11, no Hero). Reportado para priorización de
+Jorge.
 
-### 6. Siguiente loop
+#### H4 — Informativo, no requiere acción
+`og:url` aún no aparece en producción porque D-026 no fue pusheado
+todavía (ya entregado en ZIP anterior).
 
-LOOP 06 — Equipo.
+---
+
+### 3. Requiere QA manual de Jorge (no verificable desde este entorno)
+- Responsive real en los 8 breakpoints pedidos.
+- Errores de consola del navegador.
+- Comportamiento visual real de motion / prefers-reduced-motion.
+- Confirmación visual de foco por teclado.
+- Confirmación visual de ausencia de overflow horizontal.
+- Confirmación visual del HeroVisual renderizando correctamente.
+
+### 4. Criterios de aceptación
+- [x] Slogan exacto y accesible (H1 corregido).
+- [x] Máximo 2 CTAs, ahora funcionales (H2 corregido).
+- [x] Build en producción confirmado.
+- [x] Ningún cambio de diseño no solicitado; HeroVisual.tsx sin tocar.
+- [ ] Ítems de QA manual (sección 3) — pendientes de Jorge.
+- [~] H3 — reportado, no corregido, fuera de alcance.
+
+### 5. Declaración
+**LOOP 05 — READY FOR APPROVAL**, condicionado a que Jorge confirme los
+ítems de QA manual y decida cuándo abordar H3.
+
+### 6. Siguiente
+LOOP 06 a 09 ya fueron entregados en loops posteriores a este QA. El
+siguiente pendiente real es LOOP 10 — Contacto.

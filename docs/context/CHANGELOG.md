@@ -103,3 +103,18 @@
 - app/layout.tsx: agregado metadataBase y openGraph.url con la URL real.
 - app/sitemap.ts y app/robots.ts actualizados a URLs absolutas.
 - og:image sigue pendiente (falta asset de marca, no el dominio).
+
+## 2026-08-30 — v2.12 — LOOP 05 FINAL QA
+- QA real ejecutado sobre https://landing-jgc.vercel.app/ (fetch HTTP + revisión de código).
+- H1 (MEDIUM, corregido): Hero.tsx — agregado aria-label exacto al H1 ("Human vision. AI engineering. Real products."), spans visuales marcados aria-hidden.
+- H2 (HIGH, corregido): Button.tsx ahora acepta href opcional (retrocompatible); Hero CTAs wireados a #contacto y #metodo (antes no hacían nada al hacer click).
+- H3 (HIGH, reportado, no corregido): /privacidad y /terminos del Footer devuelven 404 — fuera de alcance de LOOP 05, queda documentado para LOOP 11.
+- LOOP 05 declarado READY FOR APPROVAL, condicionado a QA manual de Jorge en ítems no verificables desde este entorno (responsive visual, consola, motion real, foco por teclado).
+- Actualizados STATUS.md, DECISIONS.md.
+
+## 2026-08-30 — v2.13 — LOOP 10
+- CTA.tsx: tratamiento de alto contraste (gradiente from-accent-j via-accent-c to-accent-g), texto blanco, botón variante inverted.
+- Button.tsx: nueva variante `inverted` (aditiva, retrocompatible) para botones sobre fondos vívidos, manteniendo el sistema dark.
+- Reutilizada .reveal-on-scroll en el CTA.
+- Documentado: el botón de Contacto no tiene href real por falta de canal de contacto suministrado por Jorge (mismo pendiente que Header/MobileNav, ver H2 de LOOP 05 QA).
+- Actualizados STATUS.md, TODO.md.
