@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site-config";
 
 /**
- * SEO base — LOOP 03, actualizado tras D-026 (dominio confirmado).
- * Landing de una sola página (secciones ancla).
+ * SEO base — LOOP 03/11. Landing de una sola página (secciones ancla) +
+ * las páginas legales placeholder agregadas en LOOP 11.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -12,6 +12,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
+    },
+    {
+      url: `${SITE_URL}/privacidad`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${SITE_URL}/terminos`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
     },
   ];
 }

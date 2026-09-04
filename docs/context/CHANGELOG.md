@@ -118,3 +118,9 @@
 - Reutilizada .reveal-on-scroll en el CTA.
 - Documentado: el botón de Contacto no tiene href real por falta de canal de contacto suministrado por Jorge (mismo pendiente que Header/MobileNav, ver H2 de LOOP 05 QA).
 - Actualizados STATUS.md, TODO.md.
+
+## 2026-08-30 — v2.14 — LOOP 11
+- Resuelto H3 (QA LOOP 05): creadas app/privacidad/page.tsx y app/terminos/page.tsx (placeholder honesto, sin texto legal inventado), vía components/layout/LegalPagePlaceholder.tsx.
+- Footer.tsx: hover states en links de navegación y legales, consistentes con Header (LOOP 04).
+- app/sitemap.ts actualizado con las 2 rutas nuevas.
+- Actualizados STATUS.md, TODO.md.
