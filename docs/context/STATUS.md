@@ -1,9 +1,9 @@
 # STATUS
 
 Proyecto: JGC.LABS Official Landing
-Contexto: v2.14
-Estado: LOOP 10 entregado — LOOP 11 entregado, pendiente QA/build de Jorge
-Próximo: LOOP 12 — Responsive
+Contexto: v2.15
+Estado: LOOP 11 entregado — LOOP 12 (auditoría responsive) completada, sin cambios de código
+Próximo: LOOP 13 — Motion
 
 Equipo:
 Jorge — Product / Vision / Final Authority
@@ -14,14 +14,17 @@ Stack confirmado: Next.js 14 (App Router) + TypeScript + Tailwind CSS.
 Build: VALIDADO EN PRODUCCIÓN — https://landing-jgc.vercel.app/ (D-025).
 Dominio: CONFIRMADO (D-026) — landing-jgc.vercel.app.
 
-Footer (LOOP 11): H3 resuelto — /privacidad y /terminos ya no dan 404,
-son páginas placeholder honestas (sin inventar texto legal). Hover
-states agregados. Footer sigue sin ser denso (sin contenido no
-solicitado).
+LOOP 12 (Responsive): auditoría de código completa sobre MOCKUP_SPEC.md
+sección 17. Sin hallazgos bloqueantes. Verificación numérica de
+text-hero/text-heading en los 8 breakpoints exactos pedidos en el QA de
+LOOP 05. Un ajuste fino opcional (LOW) documentado, no aplicado (no es
+error, es matiz). Nota de diseño confirmada: Team.tsx usa md:grid-cols-3
+sin intermedio en sm a propósito (evita jerarquía visual involuntaria
+con 3 items).
 
-LOOP 05: sigue READY FOR APPROVAL, pendiente de QA manual de Jorge
-(responsive visual, consola, motion real, foco por teclado) — LOOP 12
-cubre parte de esto de forma dedicada.
+LOOP 05: sigue READY FOR APPROVAL — LOOP 12 cubre parte del QA manual
+pendiente (tipografía fluida verificada), pero la confirmación visual
+real en dispositivo sigue siendo de Jorge.
 
 Regla: cada loop se entrega como ZIP con estructura montada y contexto
 actualizado.

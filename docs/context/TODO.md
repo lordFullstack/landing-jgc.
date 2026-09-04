@@ -10,6 +10,7 @@
 - [x] LOOP 07 — Método
 - [x] LOOP 08 — Proyectos
 - [x] LOOP 09 — Servicios
+- [x] LOOP 12 — Responsive (auditoría, sin cambios de código)
 - [x] CI configurado y funcionando (GitHub Actions + Vercel)
 
 ## En READY FOR APPROVAL / entregado, DONE pendiente de build
@@ -18,7 +19,7 @@
 - [~] LOOP 11 — Footer (H3 resuelto: páginas legales placeholder honestas).
 
 ## Requiere acción de Jorge (contenido/decisiones, no bloquea desarrollo)
-- [ ] QA manual LOOP 05: responsive real en 8 breakpoints, consola del navegador, motion/prefers-reduced-motion real, foco por teclado, overflow horizontal, HeroVisual visual.
+- [ ] QA manual LOOP 05/12: confirmación visual real en los 8 breakpoints, consola del navegador, motion/prefers-reduced-motion real, foco por teclado, overflow horizontal, HeroVisual visual.
 - [ ] Confirmar en producción que /privacidad y /terminos ya no dan 404 (LOOP 11).
 - [ ] Proveer un canal de contacto real (email/WhatsApp/link) — desbloquea el botón de Contacto, Header y MobileNav.
 - [ ] Proveer contenido legal real (Política de Privacidad, Términos) para reemplazar el placeholder de LOOP 11.
@@ -29,7 +30,8 @@
 - [ ] Proveer categoría/descripción/tecnologías/demo de proyectos (5) — LOOP 08.
 - [ ] Proveer mockup visual final (imagen) para `docs/reference/mockup/`.
 - [ ] Proveer assets reales de marca (logo)/proyectos/íconos, incluyendo og:image.
-- [ ] Confirmar curva de easing / timing exactos de motion (LOOP 02, provisional).
+- [ ] Confirmar curva de easing / timing exactos de motion (LOOP 02, provisional) — LOOP 13.
+- [ ] Opcional (LOW): afinar el punto de quiebre del clamp() de text-hero para no exceder 48px a 768px (LOOP 12, no bloqueante).
 
 ## Siguiente
-- [ ] LOOP 12 — Responsive
+- [ ] LOOP 13 — Motion

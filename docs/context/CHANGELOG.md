@@ -124,3 +124,10 @@
 - Footer.tsx: hover states en links de navegación y legales, consistentes con Header (LOOP 04).
 - app/sitemap.ts actualizado con las 2 rutas nuevas.
 - Actualizados STATUS.md, TODO.md.
+
+## 2026-08-30 — v2.15 — LOOP 12 (Responsive, auditoría)
+- Auditoría de código completa sobre MOCKUP_SPEC.md sección 17 (Responsive Rules). Sin cambios de código: sin hallazgos bloqueantes.
+- Verificación numérica de clamp() de text-hero/text-heading en los 8 breakpoints exactos (320-1440px).
+- Documentada como intencional la decisión de Team.tsx (md:grid-cols-3 sin sm intermedio) — evita jerarquía visual involuntaria con 3 items (sección 9 del spec).
+- Identificado ajuste fino opcional (LOW, no aplicado): text-hero da 50px a 768px, levemente sobre el rango tablet de referencia (38-48).
+- Actualizados STATUS.md, TODO.md.
