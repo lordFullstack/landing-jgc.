@@ -46,7 +46,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           href={project.demoUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm font-medium text-accent-g underline-offset-4 hover:underline"
+          className="rounded-sm text-sm font-medium text-accent-g underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-g focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           Ver demo →
         </a>

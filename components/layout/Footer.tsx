@@ -29,7 +29,7 @@ export default function Footer() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-sm text-text-secondary transition-colors duration-fast ease-smooth hover:text-text-primary"
+                className="rounded-sm text-sm text-text-secondary transition-colors duration-fast ease-smooth hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-g focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 {item.label}
               </a>
@@ -41,7 +41,7 @@ export default function Footer() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-xs text-text-muted transition-colors duration-fast ease-smooth hover:text-text-secondary"
+                className="rounded-sm text-xs text-text-muted transition-colors duration-fast ease-smooth hover:text-text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-g focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 {item.label}
               </a>

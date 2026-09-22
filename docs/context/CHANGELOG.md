@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## 2026-09-22 — v2.19 — LOOP 02 (paquete dinámico): scroll-spy + foco consistente
+- Nuevo `lib/hooks/useActiveSection.ts` (IntersectionObserver): detecta
+  qué sección está visible cerca del centro del viewport.
+- `Header.tsx`: el nav desktop ahora marca la sección activa
+  (`aria-current="page"` + `text-text-primary`) en vez de tratar todos
+  los links igual siempre — estado `active` real, no decorativo.
+- Foco visible consistente (mismo tratamiento que `Button`: ring +
+  offset) en todos los links de nav que no lo tenían: `Header` (logo,
+  nav, trigger mobile), `Footer` (nav + legales), `MobileNav`,
+  `ProjectCard` (link de demo).
+- Alcance deliberadamente NO incluye: hover/estados en cards de
+  Team/Method/Projects/Services (no son clickeables — agregarían
+  animación decorativa sin función, prohibido por MASTER_PROMPT regla 8)
+  ni loading/success/error en Button (no hay ninguna acción asíncrona
+  real todavía — llega con formularios/backend en LOOP 06-07).
+- Verificado: `npm run build` + `npm run lint` limpios. QA manual:
+  scroll-spy confirmado (el link activo cambia al hacer scroll entre
+  secciones) y anillo de foco confirmado con Tab real en navegador.
+
 ## 2026-09-22 — v2.18 — Canal de contacto: WhatsApp
 - D-029: Jorge confirma WhatsApp como único canal de contacto (número
   `573205390468`), sin formulario/backend.

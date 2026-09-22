@@ -84,7 +84,7 @@ export default function MobileNav({ isOpen, onClose, triggerRef }: MobileNavProp
             href={item.href}
             ref={index === 0 ? firstLinkRef : undefined}
             onClick={onClose}
-            className="flex min-h-[44px] items-center border-b border-border text-base text-text-primary"
+            className="flex min-h-[44px] items-center rounded-sm border-b border-border text-base text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-g focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             {item.label}
           </a>

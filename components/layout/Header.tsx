@@ -7,6 +7,11 @@ import Button from "@/components/ui/Button";
 import MenuIcon from "@/components/ui/MenuIcon";
 import { NAV_ITEMS, NAV_CTA_LABEL } from "@/lib/constants/nav";
 import { WHATSAPP_URL } from "@/lib/site-config";
+import { useActiveSection } from "@/lib/hooks/useActiveSection";
+
+const NAV_IDS = NAV_ITEMS.map((item) => item.href.replace("#", ""));
+const FOCUS_RING =
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-g focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
 /**
  * Header — LOOP 04.
@@ -20,29 +25,41 @@ import { WHATSAPP_URL } from "@/lib/site-config";
  * Sticky: el spec permite sticky "si mejora la navegación" — se activa
  * aquí con fondo semitransparente + blur sutil (sección 6, glass
  * restringido, no reduce legibilidad).
+ *
+ * LOOP 02 (paquete dinámico): nav con estado `active` real vía scroll-spy
+ * (useActiveSection) — resalta la sección visible en vez de tratar todos
+ * los links igual siempre. Focus visible consistente (mismo tratamiento
+ * que Button) en todos los elementos interactivos, no solo en el CTA.
  */
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const activeId = useActiveSection(NAV_IDS);
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-sm">
       <Container>
         <div className="flex h-16 items-center justify-between">
-          <a href="#inicio" className="font-semibold tracking-tight">
+          <a href="#inicio" className={`rounded-sm font-semibold tracking-tight ${FOCUS_RING}`}>
             JGC.LABS
           </a>
 
           <nav aria-label="Navegación principal" className="hidden md:flex items-center gap-6">
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-sm text-text-secondary transition-colors duration-fast ease-smooth hover:text-text-primary"
-              >
-                {item.label}
-              </a>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const isActive = item.href === `#${activeId}`;
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`rounded-sm text-sm transition-colors duration-fast ease-smooth ${FOCUS_RING} ${
+                    isActive ? "text-text-primary" : "text-text-secondary hover:text-text-primary"
+                  }`}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
           </nav>
 
           <div className="hidden md:block">
@@ -58,7 +75,7 @@ export default function Header() {
             aria-controls="mobile-nav-panel"
             aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
             onClick={() => setMobileOpen((v) => !v)}
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-sm text-text-primary md:hidden"
+            className={`flex min-h-[44px] min-w-[44px] items-center justify-center rounded-sm text-text-primary md:hidden ${FOCUS_RING}`}
           >
             <MenuIcon open={mobileOpen} />
           </button>
