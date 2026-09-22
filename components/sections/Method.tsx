@@ -24,6 +24,7 @@ export default function Method() {
               key={stage.number}
               stage={stage}
               isLastInRow={(index + 1) % DESKTOP_COLUMNS === 0}
+              staggerIndex={index}
             />
           ))}
         </div>

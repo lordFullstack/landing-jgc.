@@ -24,7 +24,10 @@ import {
  * Motion: fade + translateY sutil al entrar, dentro del rango de
  * "content reveal" (350–600ms) de la sección 16. Sin retrasar el
  * contenido (aparece casi de inmediato) y respeta prefers-reduced-motion
- * globalmente (LOOP 01).
+ * globalmente (LOOP 01). Stagger vía clases `.stagger-N` (LOOP 03,
+ * paquete dinámico) en vez de los `[animation-delay:Nms]` arbitrarios
+ * que había antes — mismos valores (0/60/120/180ms), ahora en un token
+ * reutilizable (`--stagger-step`) en vez de números sueltos por elemento.
  *
  * LOOP 05 — FINAL QA (2026-08-30), dos fixes aplicados sobre producción:
  * 1. Los 2 CTAs no tenían href/onClick (no hacían nada al hacer click).
@@ -44,12 +47,12 @@ export default function Hero() {
       <Container>
         <div className="grid gap-10 md:grid-cols-2 md:items-center">
           <div>
-            <p className="animate-fade-up text-sm text-accent-g [animation-delay:0ms]">
+            <p className="animate-fade-up stagger-0 text-sm text-accent-g">
               {HERO_EYEBROW}
             </p>
 
             <h1
-              className="animate-fade-up mt-3 text-hero font-semibold tracking-tight [animation-delay:60ms]"
+              className="animate-fade-up stagger-1 mt-3 text-hero font-semibold tracking-tight"
               aria-label={SLOGAN_LINES.join(" ")}
             >
               {SLOGAN_LINES.map((line) => (
@@ -60,12 +63,12 @@ export default function Hero() {
             </h1>
 
             {HERO_SUPPORTING_COPY ? (
-              <p className="animate-fade-up mt-6 max-w-md text-text-secondary [animation-delay:120ms]">
+              <p className="animate-fade-up stagger-2 mt-6 max-w-md text-text-secondary">
                 {HERO_SUPPORTING_COPY}
               </p>
             ) : null}
 
-            <div className="animate-fade-up mt-8 flex flex-wrap gap-4 [animation-delay:180ms]">
+            <div className="animate-fade-up stagger-3 mt-8 flex flex-wrap gap-4">
               <Button variant="primary" href="#contacto">
                 {HERO_CTA_PRIMARY}
               </Button>
@@ -75,7 +78,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="animate-fade-up [animation-delay:120ms]">
+          <div className="animate-fade-up stagger-2">
             <HeroVisual />
           </div>
         </div>

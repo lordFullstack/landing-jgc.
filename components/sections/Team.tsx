@@ -11,8 +11,8 @@ export default function Team() {
         <h2 className="text-heading font-semibold">{TEAM_HEADING}</h2>
 
         <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {TEAM.map((member) => (
-            <TeamCard key={member.name} member={member} />
+          {TEAM.map((member, index) => (
+            <TeamCard key={member.name} member={member} staggerIndex={index} />
           ))}
         </div>
       </Container>

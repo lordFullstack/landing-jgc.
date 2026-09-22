@@ -5,6 +5,7 @@ interface MethodStepProps {
   stage: MethodStage;
   /** Oculta la línea conectora en la última columna de cada fila (lg, 3 cols). */
   isLastInRow?: boolean;
+  staggerIndex?: number;
 }
 
 /**
@@ -15,9 +16,9 @@ interface MethodStepProps {
  * desktop (lg) — en mobile el spec pide secuencia vertical simple, sin
  * conector.
  */
-export default function MethodStep({ stage, isLastInRow = false }: MethodStepProps) {
+export default function MethodStep({ stage, isLastInRow = false, staggerIndex = 0 }: MethodStepProps) {
   return (
-    <GlassCard className="reveal-on-scroll p-6">
+    <GlassCard className={`reveal-on-scroll stagger-${Math.min(staggerIndex % 3, 5)} p-6`}>
       <div className="flex items-center">
         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-accent-c text-sm text-accent-c">
           {stage.number}

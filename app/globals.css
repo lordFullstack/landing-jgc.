@@ -30,10 +30,21 @@
   --space-section: 96px;
   --space-container: 1280px;
 
-  /* Motion — LOOP 02. Provisional easing, ver docs/reference/DESIGN_SYSTEM.md */
+  /**
+   * Motion — LOOP 02, formalizado en LOOP 03 (paquete dinámico).
+   * Easing/timing siguen PROVISIONALES (D-015) — no se cambia el valor,
+   * solo se centraliza para que ningún componente use un número suelto.
+   */
   --duration-fast: 200ms;
   --duration-content: 450ms;
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Distancia de entrada (translateY) por contexto. */
+  --distance-fade: 12px;
+  --distance-panel: 8px;
+
+  /* Paso de stagger entre elementos de un mismo grupo (Hero, grids). */
+  --stagger-step: 60ms;
 }
 
 * {
@@ -119,14 +130,15 @@ button,
 }
 
 /**
- * Mobile nav panel entrance — LOOP 04.
- * Usa los tokens de motion de LOOP 02. Ya queda cubierto por la regla
- * prefers-reduced-motion de arriba (fuerza animation-duration a 0.01ms).
+ * Mobile nav panel entrance/salida — LOOP 04 (entrance), LOOP 03 del
+ * paquete dinámico (exit, antes el panel solo desaparecía de golpe al
+ * desmontarse). Ambas cubiertas por la regla prefers-reduced-motion de
+ * arriba (fuerza animation-duration a 0.01ms).
  */
 @keyframes panel-in {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(calc(var(--distance-panel) * -1));
   }
   to {
     opacity: 1;
@@ -134,8 +146,23 @@ button,
   }
 }
 
+@keyframes panel-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(calc(var(--distance-panel) * -1));
+  }
+}
+
 .animate-panel-in {
   animation: panel-in var(--duration-content) var(--ease-smooth);
+}
+
+.animate-panel-out {
+  animation: panel-out var(--duration-fast) var(--ease-smooth);
 }
 
 /**
@@ -147,7 +174,7 @@ button,
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(var(--distance-fade));
   }
   to {
     opacity: 1;
@@ -157,6 +184,31 @@ button,
 
 .animate-fade-up {
   animation: fade-up var(--duration-content) var(--ease-smooth) both;
+}
+
+/**
+ * Stagger — LOOP 03 (paquete dinámico). Paso reutilizable para que grupos
+ * de elementos (Hero, grids de Team/Method/Projects/Services) entren en
+ * cascada en vez de todos a la vez. Reemplaza los `[animation-delay:Nms]`
+ * arbitrarios sueltos que había antes en Hero.tsx.
+ */
+.stagger-0 {
+  animation-delay: 0ms;
+}
+.stagger-1 {
+  animation-delay: var(--stagger-step);
+}
+.stagger-2 {
+  animation-delay: calc(var(--stagger-step) * 2);
+}
+.stagger-3 {
+  animation-delay: calc(var(--stagger-step) * 3);
+}
+.stagger-4 {
+  animation-delay: calc(var(--stagger-step) * 4);
+}
+.stagger-5 {
+  animation-delay: calc(var(--stagger-step) * 5);
 }
 
 /**

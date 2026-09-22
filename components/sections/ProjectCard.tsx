@@ -14,9 +14,15 @@ import Badge from "@/components/ui/Badge";
  * del proyecto cuando Jorge la suministre — no es un ícono ni una marca
  * inventada.
  */
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({
+  project,
+  staggerIndex = 0,
+}: {
+  project: Project;
+  staggerIndex?: number;
+}) {
   return (
-    <GlassCard className="reveal-on-scroll flex flex-col gap-4 p-6">
+    <GlassCard className={`reveal-on-scroll stagger-${Math.min(staggerIndex % 3, 5)} flex flex-col gap-4 p-6`}>
       <div
         aria-hidden="true"
         className="aspect-video w-full rounded-md border border-border bg-surface"

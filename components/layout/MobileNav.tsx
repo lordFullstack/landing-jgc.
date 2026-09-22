@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { RefObject } from "react";
 import Button from "@/components/ui/Button";
 import { NAV_ITEMS, NAV_CTA_LABEL } from "@/lib/constants/nav";
@@ -22,10 +22,22 @@ interface MobileNavProps {
  * - Foco inicial en el primer link al abrir.
  * - Focus trap simple (Tab/Shift+Tab no se escapan del panel).
  * - aria-modal + role="dialog" ya que cubre el contenido debajo del header.
+ *
+ * LOOP 03 (paquete dinámico): el panel ya tenía animación de entrada
+ * (`animate-panel-in`) pero al cerrar se desmontaba de golpe (`return
+ * null`), sin salida — inconsistente con el principio "entrance/exit"
+ * del sistema de motion. Ahora se queda montado el tiempo de
+ * `--duration-fast` reproduciendo `animate-panel-out` antes de
+ * desmontarse de verdad.
  */
 export default function MobileNav({ isOpen, onClose, triggerRef }: MobileNavProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
+  const [shouldRender, setShouldRender] = useState(isOpen);
+
+  useEffect(() => {
+    if (isOpen) setShouldRender(true);
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -67,7 +79,7 @@ export default function MobileNav({ isOpen, onClose, triggerRef }: MobileNavProp
     };
   }, [isOpen, onClose, triggerRef]);
 
-  if (!isOpen) return null;
+  if (!shouldRender) return null;
 
   return (
     <div
@@ -75,7 +87,13 @@ export default function MobileNav({ isOpen, onClose, triggerRef }: MobileNavProp
       role="dialog"
       aria-modal="true"
       aria-label="Menú de navegación"
-      className="fixed inset-x-0 top-16 bottom-0 z-30 animate-panel-in overflow-y-auto bg-background md:hidden"
+      aria-hidden={!isOpen}
+      onAnimationEnd={() => {
+        if (!isOpen) setShouldRender(false);
+      }}
+      className={`fixed inset-x-0 top-16 bottom-0 z-30 overflow-y-auto bg-background md:hidden ${
+        isOpen ? "animate-panel-in" : "animate-panel-out"
+      }`}
     >
       <nav aria-label="Navegación principal (mobile)" className="flex flex-col px-5 py-4">
         {NAV_ITEMS.map((item, index) => (

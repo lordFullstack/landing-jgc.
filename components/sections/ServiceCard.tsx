@@ -10,9 +10,17 @@ import GlassCard from "@/components/ui/GlassCard";
  * Team) porque estos 4 mensajes representan a JGC.LABS como conjunto,
  * no a una entidad individual.
  */
-export default function ServiceCard({ service }: { service: ServiceBlock }) {
+export default function ServiceCard({
+  service,
+  staggerIndex = 0,
+}: {
+  service: ServiceBlock;
+  staggerIndex?: number;
+}) {
   return (
-    <GlassCard className="reveal-on-scroll border-t-2 border-t-accent-g p-5 text-center">
+    <GlassCard
+      className={`reveal-on-scroll stagger-${Math.min(staggerIndex % 4, 5)} border-t-2 border-t-accent-g p-5 text-center`}
+    >
       <p className="font-semibold">{service.title}</p>
       {service.description ? (
         <p className="mt-2 text-sm text-text-secondary">{service.description}</p>

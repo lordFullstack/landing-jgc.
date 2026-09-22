@@ -20,9 +20,11 @@ const ACCENT_BORDER: Record<TeamMember["accent"], string> = {
   c: "border-t-accent-c",
 };
 
-export default function TeamCard({ member }: { member: TeamMember }) {
+export default function TeamCard({ member, staggerIndex = 0 }: { member: TeamMember; staggerIndex?: number }) {
   return (
-    <GlassCard className={`animate-fade-up border-t-2 p-6 ${ACCENT_BORDER[member.accent]}`}>
+    <GlassCard
+      className={`animate-fade-up stagger-${Math.min(staggerIndex, 5)} border-t-2 p-6 ${ACCENT_BORDER[member.accent]}`}
+    >
       <p className="font-semibold">{member.name}</p>
       <p className="mt-1 text-sm text-text-secondary">{member.role}</p>
       {member.responsibility && member.responsibility !== member.role ? (

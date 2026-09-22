@@ -25,8 +25,8 @@ export default function Services() {
         <h2 className="sr-only">Servicios y diferenciadores</h2>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map((service) => (
-            <ServiceCard key={service.title} service={service} />
+          {SERVICES.map((service, index) => (
+            <ServiceCard key={service.title} service={service} staggerIndex={index} />
           ))}
         </div>
       </Container>

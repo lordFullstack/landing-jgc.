@@ -24,8 +24,8 @@ export default function Projects() {
         <h2 className="text-heading font-semibold">{PROJECTS_TITLE}</h2>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {PROJECTS.map((project) => (
-            <ProjectCard key={project.name} project={project} />
+          {PROJECTS.map((project, index) => (
+            <ProjectCard key={project.name} project={project} staggerIndex={index} />
           ))}
         </div>
       </Container>

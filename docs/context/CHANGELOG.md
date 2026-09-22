@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## 2026-09-22 — v2.20 — LOOP 03 (paquete dinámico): sistema de motion
+- Tokens de motion formalizados en `:root` (globals.css): `--distance-fade`,
+  `--distance-panel`, `--stagger-step`. Los valores de duración/easing
+  (D-015) NO cambian, solo se centralizan — siguen provisionales.
+- Nuevas clases reutilizables `.stagger-0`..`.stagger-5` (antes cada
+  elemento del Hero usaba un `[animation-delay:Nms]` arbitrario suelto).
+- Stagger real aplicado a las 4 grillas de cards (Team, Method, Projects,
+  Services) — antes todas las cards de una sección entraban exactamente
+  al mismo tiempo; ahora cascadean por índice (mod columnas del grid).
+- Nueva animación de salida (`panel-out`) para `MobileNav`: antes el
+  panel se desmontaba de golpe al cerrar (sin exit, solo entrance) —
+  ahora reproduce `animate-panel-out` (`--duration-fast`) antes de
+  desmontarse de verdad. Sigue cubierto por `prefers-reduced-motion`.
+- Fuera de alcance deliberado: no se tocó la curva de easing en sí
+  (sigue PROVISIONAL, D-015) — este loop formaliza el sistema, no decide
+  la curva final, eso sigue pendiente de confirmación de Jorge.
+- Verificado: `npm run build` limpio. QA: stagger de Team confirmado por
+  `getComputedStyle` (0ms/60ms/120ms reales). Transición de estado del
+  exit del MobileNav (clase + aria-expanded) confirmada por DOM; la
+  reproducción visual completa no se pudo confirmar en este entorno
+  porque el navegador embebido de pruebas estaba en background y Chrome
+  pausa animaciones CSS en pestañas no visibles — pendiente de
+  confirmación visual de Jorge en el sitio real.
+
 ## 2026-09-22 — v2.19 — LOOP 02 (paquete dinámico): scroll-spy + foco consistente
 - Nuevo `lib/hooks/useActiveSection.ts` (IntersectionObserver): detecta
   qué sección está visible cerca del centro del viewport.
