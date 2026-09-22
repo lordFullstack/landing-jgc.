@@ -40,3 +40,13 @@ completo. Build y QA visual verificados antes de continuar con cualquier
 loop nuevo.
 
 D-027 — LOOP 05 FINAL QA (2026-08-30) sobre producción real. Hallazgos y resolución: H1 (MEDIUM, corregido) — slogan del H1 sin espacio de texto real entre spans, se agregó `aria-label` exacto. H2 (HIGH, corregido) — CTAs del Hero sin `href`/`onClick`; `Button.tsx` ahora soporta `href` opcional (retrocompatible), CTAs wireados a `#contacto`/`#metodo`. H3 (HIGH, reportado, NO corregido) — links de Footer `/privacidad` y `/terminos` devuelven 404; queda fuera de alcance de LOOP 05, candidato a LOOP 11. LOOP 05 declarado READY FOR APPROVAL condicionado a QA manual de Jorge en ítems no verificables sin navegador (responsive visual, consola, motion real, foco por teclado).
+
+D-029 — Canal de contacto confirmado por Jorge (2026-09-22): WhatsApp
+(`573205390468`), sin formulario/backend. Se agregó `WHATSAPP_URL` a
+`lib/site-config.ts` (mensaje inicial precargado) y se conectaron los 3
+botones "Hablemos" que no tenían acción real (Header desktop, MobileNav,
+CTA section) — abren `wa.me` en pestaña nueva. El CTA primario del Hero
+sigue apuntando a `#contacto` a propósito (scroll hasta la sección donde
+está el botón de WhatsApp real). Desbloquea la "DECISIÓN A VALIDAR POR
+JORGE" #1 de `docs/context/DYNAMIC_WEB_SPEC.md` (LOOP 01 del paquete
+JGC_WEB_DYNAMIC_LOOPS). Email descartado por ahora, solo WhatsApp.

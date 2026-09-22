@@ -6,6 +6,7 @@ import {
   CTA_SECTION_SUBHEADLINE,
   CTA_SECTION_ACTION,
 } from "@/lib/constants/copy";
+import { WHATSAPP_URL } from "@/lib/site-config";
 
 /**
  * CTA — LOOP 10 (Contacto, per roadmap LOOP_00.md).
@@ -19,11 +20,8 @@ import {
  * (oscuro sólido) para máximo contraste sobre el gradiente sin introducir
  * un tema claro — se mantiene dentro del sistema dark.
  *
- * Pendiente de contenido (NO implementado, no se inventa): el botón no
- * tiene `href` porque todavía no existe un canal de contacto real
- * (email, WhatsApp, formulario) suministrado por Jorge. En cuanto exista,
- * se agrega como `href="mailto:..."`, un link externo, o se conecta a un
- * formulario — sin tocar el resto de la sección.
+ * Canal de contacto: WhatsApp (D-029, confirmado por Jorge). El botón
+ * abre wa.me con un mensaje inicial ya escrito, en una pestaña nueva.
  */
 export default function CTA() {
   return (
@@ -33,7 +31,9 @@ export default function CTA() {
           <h2 className="text-heading font-semibold text-white">{CTA_SECTION_HEADLINE}</h2>
           <p className="mt-2 text-white/80">{CTA_SECTION_SUBHEADLINE}</p>
           <div className="mt-8 flex justify-center">
-            <Button variant="inverted">{CTA_SECTION_ACTION}</Button>
+            <Button variant="inverted" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              {CTA_SECTION_ACTION}
+            </Button>
           </div>
         </div>
       </Container>

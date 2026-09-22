@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import type { RefObject } from "react";
 import Button from "@/components/ui/Button";
 import { NAV_ITEMS, NAV_CTA_LABEL } from "@/lib/constants/nav";
+import { WHATSAPP_URL } from "@/lib/site-config";
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -89,7 +90,14 @@ export default function MobileNav({ isOpen, onClose, triggerRef }: MobileNavProp
           </a>
         ))}
 
-        <Button variant="primary" onClick={onClose} className="mt-6 w-full">
+        <Button
+          variant="primary"
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={onClose}
+          className="mt-6 w-full"
+        >
           {NAV_CTA_LABEL}
         </Button>
       </nav>

@@ -6,6 +6,7 @@ import MobileNav from "@/components/layout/MobileNav";
 import Button from "@/components/ui/Button";
 import MenuIcon from "@/components/ui/MenuIcon";
 import { NAV_ITEMS, NAV_CTA_LABEL } from "@/lib/constants/nav";
+import { WHATSAPP_URL } from "@/lib/site-config";
 
 /**
  * Header — LOOP 04.
@@ -45,7 +46,9 @@ export default function Header() {
           </nav>
 
           <div className="hidden md:block">
-            <Button variant="primary">{NAV_CTA_LABEL}</Button>
+            <Button variant="primary" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              {NAV_CTA_LABEL}
+            </Button>
           </div>
 
           <button

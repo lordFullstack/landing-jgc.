@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 2026-09-22 — v2.18 — Canal de contacto: WhatsApp
+- D-029: Jorge confirma WhatsApp como único canal de contacto (número
+  `573205390468`), sin formulario/backend.
+- Nuevo `WHATSAPP_URL` en `lib/site-config.ts` (mensaje inicial
+  precargado, `encodeURIComponent`).
+- Conectados los 3 botones "Hablemos" que no tenían acción real:
+  `Header.tsx` (CTA desktop), `MobileNav.tsx` (CTA del panel mobile) y
+  `CTA.tsx` (sección de contacto) — los 3 abren `wa.me` en pestaña nueva
+  (`target="_blank" rel="noopener noreferrer"`).
+- Verificado build (`npm run build` limpio) y QA manual en desktop y
+  mobile: los 3 links resuelven a la URL de WhatsApp correcta.
+- Resuelve la "DECISIÓN A VALIDAR POR JORGE" #1 de `DYNAMIC_WEB_SPEC.md`.
+
 ## 2026-09-22 — v2.17 — Fix crítico: leak de código + regresión del sistema de diseño
 - **Leak de source code en producción**: el commit `687e9ee` ("fix") dejó una
   copia completa del repo (código fuente, `package.json`, `next.config.mjs`,

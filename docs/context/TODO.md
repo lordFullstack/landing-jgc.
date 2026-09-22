@@ -21,7 +21,7 @@
 ## Requiere acción de Jorge (contenido/decisiones, no bloquea desarrollo)
 - [ ] QA manual LOOP 05/12: confirmación visual real en los 8 breakpoints, consola del navegador, motion/prefers-reduced-motion real, foco por teclado, overflow horizontal, HeroVisual visual.
 - [ ] Confirmar en producción que /privacidad y /terminos ya no dan 404 (LOOP 11).
-- [ ] Proveer un canal de contacto real (email/WhatsApp/link) — desbloquea el botón de Contacto, Header y MobileNav.
+- [x] Proveer un canal de contacto real — RESUELTO (D-029): WhatsApp, botones de Header/MobileNav/CTA ya conectados.
 - [ ] Proveer contenido legal real (Política de Privacidad, Términos) para reemplazar el placeholder de LOOP 11.
 - [ ] Probar menú mobile con teclado/lector de pantalla (LOOP 04).
 - [ ] Confirmar CTA secundario del Hero (D-012) — ya wireado a #metodo, falta solo confirmar la elección de copy.
