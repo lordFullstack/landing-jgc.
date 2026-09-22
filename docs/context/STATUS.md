@@ -1,9 +1,14 @@
 # STATUS
 
 Proyecto: JGC.LABS Official Landing
-Contexto: v2.15
-Estado: LOOP 11 entregado — LOOP 12 (auditoría responsive) completada, sin cambios de código
-Próximo: LOOP 13 — Motion
+Contexto: v2.17
+Estado: Fix crítico aplicado y pusheado (D-028): leak de código en public/
++ regresión completa del sistema de diseño, ambos resueltos. Paquete
+JGC_WEB_DYNAMIC_LOOPS recibido (convertir la landing de estática a
+interactiva) — LOOP 01 (auditoría) entregado en docs/context/DYNAMIC_WEB_SPEC.md.
+Próximo: esperar aprobación de Jorge para LOOP 02 del paquete nuevo
+(estados/interacción), o LOOP 13 (Motion) del roadmap original — ambos
+compatibles, a decidir con Jorge.
 
 Equipo:
 Jorge — Product / Vision / Final Authority
