@@ -1,11 +1,71 @@
-/* ============================================
-   JGC.LABS — Tipografía (Geist Sans)
-   Jerarquía según MOCKUP_SPEC
-   ============================================ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * JGC.LABS — CSS custom properties.
+ * Mirrors tailwind.config.ts tokens for use outside utility classes
+ * (e.g. inline gradients, third-party components).
+ * Source: docs/reference/MOCKUP_SPEC.md, section 21.
+ */
+:root {
+  --background: #090a0f;
+  --surface: #11131a;
+  --surface-elevated: #151821;
+  --border: rgba(255, 255, 255, 0.1);
+
+  --text-primary: #f5f6f8;
+  --text-secondary: #a8aebb;
+  --text-muted: #6b7280;
+
+  --accent-j: #3b6cff;
+  --accent-g: #20d6c7;
+  --accent-c: #8b5cf6;
+
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --space-section: 96px;
+  --space-container: 1280px;
+
+  /* Motion — LOOP 02. Provisional easing, ver docs/reference/DESIGN_SYSTEM.md */
+  --duration-fast: 200ms;
+  --duration-content: 450ms;
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-  font-family: var(--font-geist), -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, sans-serif;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   Tipografía (Geist Sans) — jerarquía según MOCKUP_SPEC
+   ============================================ */
 
 /* Headlines — Geist Sans 600/700 */
 h1,
@@ -56,4 +116,73 @@ button,
 
 .btn-strong {
   font-weight: 600;
+}
+
+/**
+ * Mobile nav panel entrance — LOOP 04.
+ * Usa los tokens de motion de LOOP 02. Ya queda cubierto por la regla
+ * prefers-reduced-motion de arriba (fuerza animation-duration a 0.01ms).
+ */
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-panel-in {
+  animation: panel-in var(--duration-content) var(--ease-smooth);
+}
+
+/**
+ * Content reveal genérico — LOOP 05. Fade + translateY sutil, dentro del
+ * rango "content reveal" (350–600ms) de MOCKUP_SPEC.md sección 16.
+ * `animation-fill-mode: both` evita un parpadeo antes de que corra el
+ * delay individual de cada elemento.
+ */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up var(--duration-content) var(--ease-smooth) both;
+}
+
+/**
+ * Reveal progresivo al hacer scroll — LOOP 07.
+ * Fuente: MOCKUP_SPEC.md sección 10 ("Stages may reveal progressively on
+ * scroll, but content must remain available without animation").
+ *
+ * Base (todos los navegadores): mismo fade-up de LOOP 02/05 disparado al
+ * montar. Nunca deja el contenido en opacity:0 fuera de un contexto de
+ * animación soportado, así que sin CSS animations el contenido es visible
+ * por defecto (opacity computada = 1).
+ *
+ * Progressive enhancement: en navegadores con soporte de
+ * `animation-timeline: view()`, el mismo keyframe se re-liga al scroll
+ * real de la card en vez de al montaje — es la única diferencia. Si el
+ * navegador no soporta `view()`, el bloque @supports simplemente no
+ * aplica y se mantiene el fallback de montaje (nunca contenido oculto).
+ */
+.reveal-on-scroll {
+  animation: fade-up var(--duration-content) var(--ease-smooth) both;
+}
+
+@supports (animation-timeline: view()) {
+  .reveal-on-scroll {
+    animation: fade-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 25%;
+  }
 }
