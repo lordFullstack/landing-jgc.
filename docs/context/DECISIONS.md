@@ -26,4 +26,17 @@ D-023 — Fix de CI: se quitó `cache: "npm"` de `ci.yml` porque el repo no tien
 D-024 — Fix de build real (primer error detectado por el CI en GitHub Actions): Next.js 14 NO soporta `next.config.ts` (esa feature llegó en versiones posteriores) — falla con "Configuring Next.js via next.config.ts is not supported". Reemplazado por `next.config.mjs` (JS + JSDoc para tipado). `tailwind.config.ts` NO se toca — Tailwind sí soporta `.ts` nativamente vía su transpilador interno (jiti), no tiene el mismo problema.
 D-025 — Build validado en producción: sitio desplegado y funcionando en https://landing-jgc.vercel.app/ (confirmado 2026-08-30). LOOPs 01–09 quedan DONE — el bloqueo de build real (D-021) queda resuelto.
 D-026 — Jorge confirma: NO se comprará dominio propio. `https://landing-jgc.vercel.app` queda como el dominio oficial permanente. Se agregó `lib/site-config.ts` (constante `SITE_URL`) y se actualizaron `app/layout.tsx` (`metadataBase`, `openGraph.url`), `app/sitemap.ts` y `app/robots.ts` para usar la URL absoluta real. `og:image` sigue pendiente — falta el asset de marca, no el dominio.
+D-028 — Fix crítico (2026-09-22): commit `687e9ee` había dejado el código
+fuente completo, configs y docs internos duplicados dentro de `public/`,
+expuestos en el sitio en vivo — eliminado. El commit `c95237a`
+("actualización de la tipografía") sobrescribió tailwind.config.ts,
+globals.css y layout.tsx en vez de fusionarlos, borrando todo el sistema
+de diseño (colores, radios, tipografía fluida, motion, dark mode,
+metadataBase/openGraph, skip-link, prefers-reduced-motion) — restaurado
+desde git history. Además el import `Geist` vía `next/font/google` nunca
+pudo compilar (Geist Sans no es una Google Font); reemplazado por el
+paquete oficial `geist` de Vercel. Ver CHANGELOG v2.17 para detalle
+completo. Build y QA visual verificados antes de continuar con cualquier
+loop nuevo.
+
 D-027 — LOOP 05 FINAL QA (2026-08-30) sobre producción real. Hallazgos y resolución: H1 (MEDIUM, corregido) — slogan del H1 sin espacio de texto real entre spans, se agregó `aria-label` exacto. H2 (HIGH, corregido) — CTAs del Hero sin `href`/`onClick`; `Button.tsx` ahora soporta `href` opcional (retrocompatible), CTAs wireados a `#contacto`/`#metodo`. H3 (HIGH, reportado, NO corregido) — links de Footer `/privacidad` y `/terminos` devuelven 404; queda fuera de alcance de LOOP 05, candidato a LOOP 11. LOOP 05 declarado READY FOR APPROVAL condicionado a QA manual de Jorge en ítems no verificables sin navegador (responsive visual, consola, motion real, foco por teclado).

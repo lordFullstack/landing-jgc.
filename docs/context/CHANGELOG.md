@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## 2026-09-22 — v2.17 — Fix crítico: leak de código + regresión del sistema de diseño
+- **Leak de source code en producción**: el commit `687e9ee` ("fix") dejó una
+  copia completa del repo (código fuente, `package.json`, `next.config.mjs`,
+  `docs/context` internos, todos los `HANDOFF_LOOP_*`) anidada dentro de
+  `public/`, servida tal cual por Next.js desde el sitio en vivo desde
+  entonces. Eliminada; `public/` solo conserva `brand/`, `icons/`,
+  `projects/` (placeholders reales).
+- **Regresión del sistema de diseño**: el commit más reciente (`c95237a`,
+  "actualización de la tipografía") sobrescribió por completo
+  `tailwind.config.ts`, `app/globals.css` y `app/layout.tsx` con un paquete
+  de fuente Geist Sans en vez de fusionarlo — se perdieron todos los colores
+  del tema, radios, tipografía fluida (`text-hero`/`text-heading`), tokens
+  de motion, `darkMode`, `metadataBase`/`openGraph` (D-026), el skip-link
+  de accesibilidad y el manejo de `prefers-reduced-motion`. Restaurado
+  desde el historial de git y fusionado con las reglas de peso tipográfico
+  de Geist Sans (esas sí eran válidas).
+- **Fuente Geist Sans nunca compiló**: "Geist" no es una Google Font, así
+  que `next/font/google` fallaba con "Unknown font `Geist`" (el build
+  nunca se corrió localmente tras ese cambio). Reemplazado por el paquete
+  oficial `geist` de Vercel (`next/font/local` internamente).
+- Restaurado `README.md` real del proyecto (el commit lo había
+  reemplazado con el README de instalación del paquete de fuente).
+- Agregado `package-lock.json` (resuelve D-023 — CI ya puede usar
+  `cache: "npm"`) y `.claude/launch.json` para preview local.
+- Verificado: `npm run build` pasa completo (lint + typecheck + build de
+  producción) y QA visual manual en las 6 secciones + `/privacidad`.
+- Nuevo D-028 registrado en DECISIONS.md.
+
 ## 2026-08-28 — v2.2 — LOOP 02
 - LOOP 01 marcado DONE (build validado por Jorge).
 - Añadidos tokens de tipografía fluida (text-hero, text-heading) según MOCKUP_SPEC sección 3.
